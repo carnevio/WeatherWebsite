@@ -3,10 +3,76 @@
 {% block title %}Ergebnis{% endblock %}
 
 {% block content %}
-  <h2>Ergebnis</h2>
-  <p>Du hast <strong>{{ city }}</strong> eingegeben.</p>
-  <p>Es ist <strong>{{ temp }}</strong> Crad.</p>
-  <p>Wetter: {{ description }}</p>
-  <img src="{{ icon }}" alt="Wetter Icon">
-  <a href="{{ url_for('index') }}">Zurück</a>
+{% if data %}
+  <div class="weather-header">
+    <div>
+      <h1>{{ data.name }}, {{ data.sys.country }}</h1>
+      <div class="weather-meta">
+        <span>Stand: {{ now }}</span>
+        <span>{{ data.coord.lat }}, {{ data.coord.lon }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="weather-main">
+    <div class="weather-temp">
+      <span class="temp">{{ data.main.temp }}°</span>
+      <div class="feels">Gefuehlt {{ data.main.feels_like }}°</div>
+      <div class="desc">{{ data.weather[0].description }}</div>
+      <div class="minmax">
+        <span>Min {{ data.main.temp_min }}°</span>
+        <span>Max {{ data.main.temp_max }}°</span>
+      </div>
+    </div>
+    <div class="weather-icon">
+      <img src="http://openweathermap.org/img/wn/{{ data.weather[0].icon }}@2x.png" alt="Wetter Icon">
+    </div>
+  </div>
+
+  <div class="weather-grid">
+    <div class="weather-box">
+      <div class="label">Wolken</div>
+      <div class="value">{{ data.clouds.all }}%</div>
+      <div class="sub">Abdeckung</div>
+    </div>
+    <div class="weather-box">
+      <div class="label">Sichtweite</div>
+      <div class="value">{{ (data.visibility / 1000) | round(1) }} km</div>
+      <div class="sub">in km</div>
+    </div>
+    <div class="weather-box">
+      <div class="label">Luftfeuchte</div>
+      <div class="value">{{ data.main.humidity }}%</div>
+      <div class="sub">relativ</div>
+    </div>
+    <div class="weather-box">
+      <div class="label">Luftdruck</div>
+      <div class="value">{{ data.main.pressure }} hPa</div>
+      <div class="sub">hPa</div>
+    </div>
+    <div class="weather-box">
+      <div class="label">Wind</div>
+      <div class="value">{{ data.wind.speed }} m/s OSO</div>
+      <div class="sub">{{ data.wind.deg }}°</div>
+    </div>
+    <div class="weather-box">
+      <div class="label">Sonne</div>
+      <div class="value">Aufgang {{ sunrise}}</div>
+      <div class="sub">Untergang {{ sunset}}</div>
+    </div>
+    <div class="weather-box">
+      <div class="label">Niveau</div>
+      <div class="value">{{ data.main.sea_level }} / {{ data.main.grnd_level }} hPa</div>
+      <div class="sub">sea_level / grnd_level</div>
+    </div>
+    <div class="weather-box">
+      <div class="label">Meta</div>
+      <div class="value">{{ data.base }}</div>
+      <div class="sub">id {{ data.id }} • cod {{ data.cod }}</div>
+    </div>
+  </div>
+{% else %}
+  <p>Keine Wetterdaten geladen.</p>
+{% endif %}
+<a href="{{ url_for('index') }}">Zurück</a>
 {% endblock %}

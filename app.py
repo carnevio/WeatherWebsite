@@ -1,6 +1,7 @@
 from weather_service import getData
 from flask import Flask, render_template, request
 import json
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -15,6 +16,8 @@ def result():
     error = None
     temp = None
     city = request.form.get("city")
+    now = datetime.now()
+    now = now.strftime("%H:%M")
 
 
     if request.method == "POST":
@@ -22,16 +25,21 @@ def result():
             data = getData(city)
             if isinstance(data, str):
                 data = json.loads(data)
-            temp = data.get("main", {}).get("temp")
-            icon_code = data["weather"][0]["icon"]
-            icon = f"http://openweathermap.org/img/wn/{icon_code}@2x.png"
+
+            sunrise = data.get("sys", {}).get("sunrise")
+            sunset = data.get("sys", {}).get("sunset")
+
+            sunrise = datetime.fromtimestamp(sunrise).strftime("%H:%M")
+            sunset = datetime.fromtimestamp(sunset).strftime("%H:%M")
+
+
 
 
 
         except Exception as e:
             error = f"Fehlrer beim Laden: {e}"
 
-    return render_template("result.html", error=error, temp=temp, city=city, icon=icon)
+    return render_template("result.html", error=error, data=data, now=now, sunrise=sunrise, sunset=sunset)
 
 if __name__ == "__main__":
     app.run(debug=True)
