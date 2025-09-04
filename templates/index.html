@@ -1,25 +1,11 @@
-<!doctype html>
-<html lang="de">
-<head>
-  <meta charset="utf-8">
-  <title>Witze App</title>
-  <link rel="stylesheet" href="static/style.css">
-</head>
-<body>
-  <main class="container">
-    <h1>WWeather App</h1>
+{% extends "base.html" %}
 
-    {% if temp %}
-      <div class="joke">{{ temp }}</div>
-    {% elif error %}
-      <div class="error">{{ error }}</div>
-    {% else %}
-      <p>Noch kein Witz geladen.</p>
-    {% endif %}
+{% block title %}Startseite{% endblock %}
 
-    <form method="post">
-      <button type="submit">Neuen Witz holen</button>
-    </form>
-  </main>
-</body>
-</html>
+{% block content %}
+  <h2>Gib deine Stadt ein</h2>
+  <form action="{{ url_for('result') }}" method="post">
+    <input type="text" name="city" placeholder="z.B. Zürich" required>
+    <button type="submit">Absenden</button>
+  </form>
+{% endblock %}

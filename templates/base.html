@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Meine Flask App{% endblock %}</title>
+  <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Meine Flask App</h1>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Nevio</p>
+  </footer>
+</body>
+</html>
