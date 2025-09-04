@@ -8,7 +8,8 @@ api_key = os.getenv("OPENWEATHER_API_KEY")
 
 location = "Zuerich"
 
-URL = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + api_key 
+URL = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + api_key + "&units=metric"
+
 
 def getData():
     r = requests.get(URL)
