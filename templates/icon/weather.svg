@@ -1,0 +1,78 @@
+<!-- Weather App Favicon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Wetter App Icon">
+  <title>Wetter App</title>
+  <defs>
+    <!-- Sky gradient (light) -->
+    <linearGradient id="skyLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#60a5fa"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+    <!-- Sky gradient (dark) -->
+    <linearGradient id="skyDark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0ea5e9"/>
+      <stop offset="1" stop-color="#0369a1"/>
+    </linearGradient>
+    <clipPath id="pad">
+      <rect x="8" y="8" width="48" height="48" rx="12" ry="12"/>
+    </clipPath>
+  </defs>
+
+  <style>
+    :root {
+      --sky: url(#skyLight);
+      --sun: #facc15;         /* gelb */
+      --cloud: #ffffff;       /* weißer Cloudkörper */
+      --stroke: rgba(0,0,0,0.12);
+      --drop: #22c55e;        /* optionaler Akzent für Tropfen */
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --sky: url(#skyDark);
+        --sun: #fde68a;
+        --cloud: #e5e7eb;
+        --stroke: rgba(255,255,255,0.18);
+        --drop: #86efac;
+      }
+    }
+  </style>
+
+  <!-- padded rounded background for bessere Erkennbarkeit in 16×16 -->
+  <g clip-path="url(#pad)">
+    <rect x="0" y="0" width="64" height="64" fill="var(--sky)"/>
+  </g>
+  <rect x="8" y="8" width="48" height="48" rx="12" ry="12" fill="none" stroke="var(--stroke)"/>
+
+  <!-- Sun (teilweise hinter der Wolke) -->
+  <g transform="translate(36 24)">
+    <circle r="9" fill="var(--sun)"/>
+    <!-- wenige, dicke Strahlen für Favicon-Lesbarkeit -->
+    <g stroke="var(--sun)" stroke-width="3" stroke-linecap="round">
+      <line x1="0" y1="-14" x2="0" y2="-10"/>
+      <line x1="0" y1="14" x2="0" y2="10"/>
+      <line x1="-14" y1="0" x2="-10" y2="0"/>
+      <line x1="14" y1="0" x2="10" y2="0"/>
+      <line x1="-10" y1="-10" x2="-7" y2="-7"/>
+      <line x1="10" y1="10" x2="7" y2="7"/>
+    </g>
+  </g>
+
+  <!-- Cloud -->
+  <g transform="translate(20 30)">
+    <!-- Wolkenkörper -->
+    <path d="
+      M10 16h16a7 7 0 0 0 0-14
+      10 10 0 0 0-19.1-2.8
+      A6.5 6.5 0 0 0 10 16Z"
+      fill="var(--cloud)"/>
+    <!-- dezente Kontur für Kantenklarheit im kleinen Format -->
+    <path d="
+      M10 16h16a7 7 0 0 0 0-14
+      10 10 0 0 0-19.1-2.8
+      A6.5 6.5 0 0 0 10 16Z"
+      fill="none" stroke="var(--stroke)" stroke-width="1.2" stroke-linejoin="round"/>
+  </g>
+
+  <!-- optional: kleiner „Tropfen“ als Wetter-Hinweis -->
+  <path d="M30 48c0 2.2 1.8 4 4 4s4-1.8 4-4c0-2.7-3-5.1-4-7-1 1.9-4 4.3-4 7Z"
+        fill="var(--drop)"/>
+</svg>
